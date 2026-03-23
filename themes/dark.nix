@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  catppuccin.flavor = "frappe";
+}
