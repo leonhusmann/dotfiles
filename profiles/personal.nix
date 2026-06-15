@@ -1,5 +1,8 @@
 { lib, pkgs, ... }:
 
+let
+  threedots-cli = import ../packages/threedots-cli.nix { inherit pkgs; };
+in
 {
   imports = [
     ../modules/bash.nix
@@ -28,5 +31,6 @@
     pkgs.zotero
     pkgs.spotify
     pkgs.opencode
+    threedots-cli
   ];
 }
