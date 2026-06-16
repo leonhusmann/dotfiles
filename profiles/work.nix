@@ -27,8 +27,6 @@
   };
 
   home.packages = [
-    pkgs._1password-cli
-    pkgs._1password-gui-beta
     pkgs.mkcert
     pkgs.nss
     pkgs.k6
@@ -37,7 +35,6 @@
     pkgs.jetbrains.goland
     pkgs.jetbrains.phpstorm
     pkgs.openvpn
-    pkgs.openfortivpn
     pkgs.code-cursor
     pkgs.cursor-cli
     pkgs.zoom-us

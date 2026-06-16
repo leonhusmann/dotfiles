@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix eval *)",
+      "Bash(curl -s \"https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/tools/networking/openssh/default.nix\")"
+    ]
+  }
+}
