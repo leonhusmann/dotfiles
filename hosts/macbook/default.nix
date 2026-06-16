@@ -17,6 +17,8 @@
 
   home.file = {};
 
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
   };

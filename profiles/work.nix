@@ -35,11 +35,33 @@
     pkgs.jetbrains.goland
     pkgs.jetbrains.phpstorm
     pkgs.openvpn
+    pkgs.openfortivpn
     pkgs.code-cursor
     pkgs.cursor-cli
     pkgs.zoom-us
     pkgs.go-task
     pkgs.slack
     pkgs.tinyproxy
+    (pkgs.writeShellScriptBin "forti" ''
+      set -o nounset
+      set -o errexit
+
+      user="leon.husmann"
+      password=$(op read "op://Employee/Fortigate VPN/password")
+      authFilePrefix="''${HOME}/Library/Caches/check24-forti-vpn.auth"
+
+      rm -f "$authFilePrefix".*
+      authFile="$(mktemp "$authFilePrefix.XXXXXXX")"
+      trap 'rm -f "$authFile"' EXIT
+
+      echo "username = $user" > "$authFile"
+      echo "password = $password" >> "$authFile"
+      echo "host = hotel-vpn.fw.reise.check24.de" >> "$authFile"
+      echo "port = 443" >> "$authFile"
+      echo "set-dns = 0" >> "$authFile"
+      echo "pppd-use-peerdns = 0" >> "$authFile"
+
+      sudo ${pkgs.openfortivpn}/bin/openfortivpn -c "$authFile"
+    '')
   ];
 }
