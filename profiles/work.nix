@@ -16,7 +16,7 @@
       User = "leon.husmann";
     };
 
-    "hocore-* mdma-* ds-* img-* lb-* bo-* ho-* pa-* uti* hoapi-*" = {
+    "jenkins-* hocore-* mdma-* ds-* img-* lb-* bo-* ho-* pa-* uti* hoapi-*" = {
       User = "leon.husmann";
       Port = 42022;
       IdentityFile = "~/.ssh/c24_cluster";

@@ -95,8 +95,10 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("nvim-tree").setup({
+        git = { ignore = false },
         renderer = { highlight_git = true, icons = { show = { file = true, folder = true, git = true } } }
       })
+      vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { link = "Comment" })
       vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
     end
   },
