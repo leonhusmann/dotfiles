@@ -26,6 +26,7 @@ in
   programs.obsidian.enable = true;
 
   home.packages = [
+    pkgs.nodejs
     pkgs.proton-pass
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.zotero
