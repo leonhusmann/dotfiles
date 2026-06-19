@@ -40,9 +40,7 @@
         ".ai/"
         ".agents"
         ".vscode/"
-        "skills-lock.json"
-        "AGENTS.md"
-        ".antigravitycli"
+        ".opencode"
       ];
     };
   };
