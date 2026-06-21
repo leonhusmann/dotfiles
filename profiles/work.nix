@@ -3,6 +3,11 @@
 {
   imports = [
     ../modules/ideavim.nix
+    ../modules/mcp/atlassian.nix
+    ../modules/mcp/bitbucket.nix
+    ../modules/claude.nix
+    ../modules/cursor.nix
+    ../modules/opencode.nix
   ];
 
   my.ssh.extraHosts = {
@@ -26,34 +31,13 @@
     };
   };
 
-  home.file.".cursor/mcp.json".text = builtins.toJSON {
-    mcpServers = {
-      bitbucket = {
-        command = "bitbucket-mcp-server";
-      };
-      atlassian-mcp-server = {
-        url = "https://mcp.atlassian.com/v1/mcp/authv2";
-      };
-    };
-  };
-
-  # Register MCP servers in Claude Code (~/.claude.json is a live file, so use
-  # activation scripts instead of home.file to avoid clobbering Claude's state).
-  home.activation.claudeMcpServers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD ${pkgs.claude-code}/bin/claude mcp add \
-      --transport http atlassian-mcp-server https://mcp.atlassian.com/v1/mcp/authv2 \
-      -s user 2>/dev/null || true
-    $DRY_RUN_CMD ${pkgs.claude-code}/bin/claude mcp add \
-      bitbucket bitbucket-mcp-server \
-      -s user 2>/dev/null || true
-  '';
-
   home.packages = [
     pkgs.mkcert
     pkgs.nss
     pkgs.k6
     pkgs.buf
     pkgs.claude-code
+    pkgs.nodejs
     pkgs.jetbrains.goland
     pkgs.jetbrains.phpstorm
     pkgs.openvpn
@@ -64,13 +48,6 @@
     pkgs.go-task
     pkgs.slack
     pkgs.tinyproxy
-    (pkgs.writeShellScriptBin "bitbucket-mcp-server" ''
-      export BITBUCKET_URL="https://api.bitbucket.org/2.0"
-      export BITBUCKET_WORKSPACE="check24"
-      export BITBUCKET_USERNAME="leon.husmann@check24.de"
-      export BITBUCKET_PASSWORD="$(op read "op://Employee/nu5j7h3woz27twdzjhlcjnfzuu/password")"
-      exec ${pkgs.nodejs}/bin/npx -y bitbucket-mcp@latest
-    '')
     (pkgs.writeShellScriptBin "forti" ''
       set -o nounset
       set -o errexit
