@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  agents = config.my.agents;
   mcpServers = config.my.mcp.servers;
   secretWrapper = serverName: "${config.xdg.stateHome}/mcp/${serverName}/run";
 
@@ -10,13 +9,6 @@ let
 
   withoutNulls = attrs:
     lib.filterAttrs (_: v: v != null && v != {} && v != []) attrs;
-
-  renderFrontmatter = attrs:
-    let
-      nonNull = withoutNulls attrs;
-      lines = lib.mapAttrsToList (k: v: "${k}: ${builtins.toJSON v}") nonNull;
-    in
-    "---\n" + lib.concatStringsSep "\n" lines + "\n---\n\n";
 
   renderMcpServer = name: server:
     let
@@ -34,25 +26,11 @@ let
     withoutNulls base;
 
   mcpConfigFile = pkgs.writeText "claude-mcp-servers.json" (builtins.toJSON (lib.mapAttrs renderMcpServer mcpServers));
-
-  renderAgent = name: agent:
-    let
-      baseFrontmatter = {
-        inherit name;
-        inherit (agent) description;
-        tools = if agent.readOnly then [ "Read" "Grep" "Glob" "Bash" ] else null;
-      };
-      frontmatter = renderFrontmatter baseFrontmatter;
-    in
-    frontmatter + agent.prompt;
 in
 {
-  imports = [ ./agents.nix ./mcp.nix ];
+  imports = [ ./mcp.nix ];
 
   config = {
-    home.file =
-      lib.mapAttrs' (name: agent: lib.nameValuePair ".claude/agents/${name}.md" { text = renderAgent name agent; force = true; }) agents;
-
     home.activation.claudeMcp = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       claude_json="${config.home.homeDirectory}/.claude.json"
       mcp_tmp="$(${pkgs.coreutils}/bin/mktemp)"

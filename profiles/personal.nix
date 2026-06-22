@@ -15,11 +15,6 @@ in
     ../modules/tmux.nix
     ../modules/antigravity.nix
     ../modules/kitty.nix
-    ../modules/agents/generalist.nix
-    ../modules/agents/orchestrator.nix
-    ../modules/agents/planner.nix
-    ../modules/agents/researcher.nix
-    ../modules/agents/worker.nix
     ../modules/claude.nix
     ../modules/opencode.nix
   ];
