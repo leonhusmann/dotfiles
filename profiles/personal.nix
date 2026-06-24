@@ -13,7 +13,6 @@ in
     ../modules/go.nix
     ../modules/neovim.nix
     ../modules/tmux.nix
-    ../modules/antigravity.nix
     ../modules/kitty.nix
     ../modules/claude.nix
     ../modules/opencode.nix

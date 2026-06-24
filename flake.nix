@@ -8,10 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    antigravity-nix.url = "github:jacopone/antigravity-nix";
   };
 
-  outputs = { nixpkgs, home-manager, catppuccin, antigravity-nix, ... }:
+  outputs = { nixpkgs, home-manager, catppuccin, ... }:
     let
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
@@ -22,8 +21,8 @@
       homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit catppuccin antigravity-nix;
-          theme = "dark"; # Central theme selector: "light" or "dark"
+          inherit catppuccin;
+          theme = "dark";
         };
         modules = [
           catppuccin.homeModules.catppuccin

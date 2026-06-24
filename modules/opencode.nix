@@ -40,6 +40,20 @@ let
       options.baseURL = "http://127.0.0.1:32124/v1";
       models."composer-2.5".name = "Composer 2.5";
     };
+    lsp = {
+      gopls = {
+        command = [ "${pkgs.gopls}/bin/gopls" ];
+        extensions = [ ".go" ];
+      };
+
+      typescript = {
+        command = [
+          "${pkgs.typescript-language-server}/bin/typescript-language-server"
+          "--stdio"
+        ];
+        extensions = [ ".ts" ".tsx" ".js" ".jsx" ".mjs" ".cjs" ".mts" ".cts" ];
+      };
+    };
     mcp = lib.mapAttrs renderMcpServer mcpServers;
   };
 in
@@ -53,5 +67,7 @@ in
       text = builtins.toJSON opencodeConfig;
       force = true;
     };
+
+
   };
 }
