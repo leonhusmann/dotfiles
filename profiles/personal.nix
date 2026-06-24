@@ -22,7 +22,7 @@ in
 
   programs.fastfetch.enable = true;
   programs.htop.enable = true;
-  programs.lazygit.enable = true;
+  programs.gitui.enable = true;
   programs.firefox.enable = true;
   programs.obsidian.enable = true;
 
