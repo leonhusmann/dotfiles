@@ -24,4 +24,17 @@
   };
 
   programs.home-manager.enable = true;
+
+  launchd.agents.home-manager-update = {
+    enable = true;
+    config = {
+      ProgramArguments = [
+        "/bin/sh" "-c"
+        "cd /Users/leon.husmann/Dotfiles && nix flake update && home-manager switch --flake .#macbook && nix-collect-garbage --delete-older-than 7d"
+      ];
+      StartCalendarInterval = [{ Hour = 7; Minute = 0; }];
+      StandardOutPath = "/tmp/hm-update.log";
+      StandardErrorPath = "/tmp/hm-update.log";
+    };
+  };
 }

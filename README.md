@@ -41,6 +41,15 @@ darwin-rebuild switch --flake .#<host>
 # Update all flake dependencies
 nix flake update
 
-# Clean up unused Nix store paths (Garbage Collection)
-nix-collect-garbage -d
+# Clean up unused Nix store paths (keeps last 7 days of generations)
+nix-collect-garbage --delete-older-than 7d
+```
+
+### Rollback
+```bash
+# List available generations
+home-manager generations
+
+# Roll back to a specific generation
+home-manager switch --to <id>
 ```
