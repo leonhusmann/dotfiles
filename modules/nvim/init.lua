@@ -48,7 +48,7 @@ require("lazy").setup({
       })
       local caps = require('cmp_nvim_lsp').default_capabilities()
       vim.lsp.config('lua_ls', { capabilities = caps, settings = { Lua = { diagnostics = { globals = { 'vim' } } } } })
-      vim.lsp.enable({ 'gopls', 'lua_ls', 'ts_ls' })
+      vim.lsp.enable({ 'gopls', 'lua_ls', 'ts_ls', 'bashls', 'dockerls', 'yamlls', 'marksman', 'sqls', 'html', 'groovyls', 'jinja_lsp' })
     end
   },
 
@@ -73,7 +73,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter").setup({
-        ensure_installed = { "lua", "go", "typescript", "javascript", "bash", "nix", "markdown" },
+        ensure_installed = { "lua", "go", "typescript", "javascript", "bash", "nix", "markdown", "yaml", "dockerfile", "html", "sql", "groovy", "json", "jinja" },
         highlight = { enable = true },
       })
     end

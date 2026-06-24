@@ -53,6 +53,46 @@ let
         ];
         extensions = [ ".ts" ".tsx" ".js" ".jsx" ".mjs" ".cjs" ".mts" ".cts" ];
       };
+
+      bash = {
+        command = [ "${pkgs.bash-language-server}/bin/bash-language-server" "start" ];
+        extensions = [ ".sh" ".bash" ".zsh" ".bashrc" ".bash_profile" ];
+      };
+
+      dockerfile = {
+        command = [ "${pkgs.dockerfile-language-server}/bin/docker-langserver" "--stdio" ];
+        extensions = [ ".dockerfile" ];
+      };
+
+      yaml = {
+        command = [ "${pkgs.yaml-language-server}/bin/yaml-language-server" "--stdio" ];
+        extensions = [ ".yaml" ".yml" ".sls" ];
+      };
+
+      markdown = {
+        command = [ "${pkgs.marksman}/bin/marksman" "server" ];
+        extensions = [ ".md" ".markdown" ];
+      };
+
+      sql = {
+        command = [ "${pkgs.sqls}/bin/sqls" ];
+        extensions = [ ".sql" ];
+      };
+
+      html = {
+        command = [ "${pkgs.vscode-langservers-extracted}/bin/vscode-html-language-server" "--stdio" ];
+        extensions = [ ".html" ".htm" ".tmpl" ".gohtml" ];
+      };
+
+      groovy = {
+        command = [ "${pkgs.groovy-language-server}/bin/groovy-language-server" ];
+        extensions = [ ".groovy" ".gvy" ".Jenkinsfile" ];
+      };
+
+      jinja = {
+        command = [ "${pkgs.jinja-lsp}/bin/jinja-lsp" ];
+        extensions = [ ".j2" ".jinja" ".jinja2" ];
+      };
     };
     mcp = lib.mapAttrs renderMcpServer mcpServers;
   };

@@ -23,6 +23,14 @@
       lua-language-server
       typescript-language-server
       typescript
+      bash-language-server
+      dockerfile-language-server
+      yaml-language-server
+      jinja-lsp
+      marksman
+      sqls
+      vscode-langservers-extracted
+      groovy-language-server
     ];
     initLua = builtins.readFile ./nvim/init.lua;
   };
